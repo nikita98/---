@@ -14,21 +14,25 @@
 })();
 
 (function start() {
-  var $body = $("body"),
-    $menu = $(".nav"),
-    $sub = $(".nav__submenu"),
-    $width = $(window).width();
+  let $dropdown = $(".dropdown");
 
-  $sub.parent().append("<div class='arrow'></div>");
+  $dropdown.parent().append("<div class='arrow'></div>");
   if (window.matchMedia("(max-width: 767px)").matches) {
-    $sub.hide();
+    $dropdown.hide();
   } else {
-    $sub.show();
+    $dropdown.show();
   }
 
   $("body").on("click", ".arrow", function () {
-    $(this).toggleClass('active');
-    $(this).parent().find($(".nav__submenu")).toggle();
+    $(this).toggleClass("active");
+    $(this).parent().find($(".dropdown")).toggle();
+  });
+})();
+
+(function popup() {
+  $("body").on("click", ".show-popup", function () {
+    console.log(123);
+    $(".popup").toggleClass("active");
   });
 })();
 
