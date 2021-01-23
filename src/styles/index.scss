@@ -98,9 +98,44 @@ h4 {
 
 .arrow {
   position: absolute;
-  height: 20px;
-  width: 20px;
-  background-color: #000;
+  top: 10px;
+  left: calc(50% + 60px);
+  cursor: pointer;
+  height: 10px;
+  width: 10px;
+  transform: rotate(45deg);
+  transition: 0.3s;
+  display: none;
+
+  &.active {
+    transform: rotate(135deg);
+  }
+
+  @media (max-width: 991px) {
+    display: block;
+  }
+
+  &::after {
+    position: absolute;
+    z-index: 100;
+    content: "";
+    height: 10px;
+    width: 2px;
+    background-color: #fff;
+    right: 4px;
+    top: 3px;
+  }
+
+  &::before {
+    position: absolute;
+    z-index: 100;
+    content: "";
+    height: 2px;
+    width: 10px;
+    background-color: #fff;
+    right: 4px;
+    top: 3px;
+  }
 }
 
 .bold {
@@ -155,11 +190,19 @@ h4 {
     font-size: 22px;
     font-weight: bold;
     font-style: italic;
+
+    @media (max-width: 767px) {
+      font-size: 16px;
+    }
   }
 
   &__job {
     font-size: 16px;
     font-style: italic;
+  }
+
+  @media (max-width: 767px) {
+    font-size: 14px;
   }
 }
 
@@ -214,7 +257,7 @@ h4 {
     padding-top: 20px;
     flex-direction: column;
     width: 100%;
-    background-color: #fff;
+    background-color: rgba($color: #000, $alpha: 0.8);
   }
 
   &__submenu {
@@ -227,6 +270,10 @@ h4 {
 
     @media (max-width: 991px) {
       position: relative;
+      width: 100%;
+      background-color: inherit;
+      opacity: 1;
+      transform: scaleY(1);
     }
   }
 
@@ -235,8 +282,12 @@ h4 {
     position: relative;
 
     &_phone {
-      margin-left: 10px;
-      background-color: $accent;
+      display: flex;
+      justify-content: center;
+
+      @media (max-width: 991px) {
+        margin: 0 auto;
+      }
     }
 
     &:hover {
@@ -252,6 +303,11 @@ h4 {
     padding: 10px 20px;
     width: 100%;
     border-bottom: 1px solid #f5f5f6;
+
+    @media (max-width: 991px) {
+      padding: 0;
+      border-bottom: none;
+    }
   }
 
   &__sublink {
@@ -267,6 +323,23 @@ h4 {
       color: #1f1f20;
       text-decoration: none;
       border-bottom: 2px solid $accent;
+    }
+
+    @media (max-width: 991px) {
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      border-bottom: none;
+      font-size: 14px;
+
+      &:hover {
+        color: #fff;
+        color: $accent;
+        text-decoration: none;
+        border-bottom: none;
+      }
     }
   }
 
@@ -290,14 +363,17 @@ h4 {
     justify-content: center;
 
     @media (max-width: 991px) {
-      color: #000;
       padding: 8px;
       height: auto;
-      border-bottom: 1px solid #666;
 
       &:hover {
         color: $accent;
       }
+    }
+
+    &_phone {
+      width: 40px;
+      background-color: $accent;
     }
   }
 
@@ -306,6 +382,11 @@ h4 {
     list-style: none;
     margin: 0;
     padding: 0;
+
+    @media (max-width: 991px) {
+      display: flex;
+      justify-content: center;
+    }
 
     & > :not(:last-child) {
       position: relative;
@@ -325,17 +406,14 @@ h4 {
 }
 
 .burger {
-  cursor: pointer;
   position: absolute;
-  right: 0;
-  top: 10px;
   display: none;
+  z-index: 10;
+  right: 20px;
+  top: 10px;
   height: 50px;
   width: 50px;
-  min-width: 50px;
-  background-color: rgba($accent, 0.3);
-  z-index: 100;
-  margin: 10px;
+  background-color: #000;
 
   @media (max-width: 991px) {
     display: block;
@@ -343,8 +421,8 @@ h4 {
 
   &__icon {
     width: 25px;
+    background: #fff;
     height: 2px;
-    background: #000;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -354,21 +432,42 @@ h4 {
     &::before {
       content: "";
       width: 25px;
-      background: #000;
+      background: #fff;
       height: 2px;
       position: absolute;
       top: -10px;
       left: 0;
+      transition: 0.3s;
     }
 
     &::after {
       content: "";
       width: 25px;
-      background: #000;
+      background: #fff;
       height: 2px;
       position: absolute;
       top: 10px;
       left: 0;
+      transition: 0.3s;
+    }
+  }
+}
+
+.close_burger {
+  .burger__icon {
+    background-color: #000;
+    transition: 0.3s;
+
+    &::before {
+      top: 0;
+      transform: rotate(45deg);
+      transition: 0.3s;
+    }
+
+    &::after {
+      top: 0;
+      transform: rotate(-45deg);
+      transition: 0.3s;
     }
   }
 }
@@ -385,11 +484,7 @@ h4 {
   outline: none;
 
   @media (max-width: 991px) {
-    position: absolute;
-    right: 80px;
-    top: 55px;
     color: #fff;
-    z-index: 10000;
   }
 
   & option {
@@ -401,12 +496,27 @@ h4 {
 .phone {
   display: flex;
 
+  @media (max-width: 767px) {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    text-align: right;
+  }
+
   & > :not(:last-child) {
     margin-right: 15px;
+
+    @media (max-width: 767px) {
+      margin-right: 0;
+    }
 
     &::after {
       content: "/";
       margin-left: 15px;
+
+      @media (max-width: 767px) {
+        content: "";
+        margin-left: 0;
+      }
     }
   }
 
@@ -414,6 +524,11 @@ h4 {
     display: block;
     font-size: 18px;
     color: #fff;
+
+    @media (max-width: 767px) {
+      width: 100%;
+      font-size: 14px;
+    }
   }
 }
 
@@ -476,10 +591,10 @@ h4 {
     width: 100%;
 
     @media (max-width: 991px) {
-      position: absolute;
-      width: 300px;
-      right: 0;
-      top: -32px;
+      position: fixed;
+      width: 100%;
+      left: 0;
+      top: 0;
     }
   }
 }
@@ -575,10 +690,15 @@ h4 {
 }
 
 .intro-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 32px;
+  @media (max-width: 767px) {
+    background-color: rgba(35, 41, 47, 0.7);
+  }
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 .tabs {
@@ -797,6 +917,7 @@ h4 {
 .stock {
   background-color: $accent;
   color: #fff;
+  overflow: hidden;
 
   &__left {
     position: relative;
@@ -954,6 +1075,10 @@ h4 {
     height: 100%;
     border-bottom: 20px solid #f5f5f6;
 
+    @media (max-width: 991px) {
+      padding: 30px 30px 30px 70px;
+    }
+
     &::before {
       content: "“";
       font-family: Arial, sans-serif;
@@ -963,6 +1088,11 @@ h4 {
       left: 30px;
       top: 30px;
       color: $accent;
+
+      @media (max-width: 991px) {
+        left: 20px;
+        top: 10px;
+      }
     }
   }
 
@@ -992,6 +1122,10 @@ h4 {
     height: 190px;
     display: flex;
     align-items: center;
+
+    @media (max-width: 767px) {
+      height: 70px;
+    }
   }
 
   &__icon {

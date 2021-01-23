@@ -19,10 +19,17 @@
     $sub = $(".nav__submenu"),
     $width = $(window).width();
 
-  if (window.matchMedia("(max-width: 767px)")) {
+  $sub.parent().append("<div class='arrow'></div>");
+  if (window.matchMedia("(max-width: 767px)").matches) {
     $sub.hide();
-    $sub.parent().append("<div class='arrow'></div>");
+  } else {
+    $sub.show();
   }
+
+  $("body").on("click", ".arrow", function () {
+    $(this).toggleClass('active');
+    $(this).parent().find($(".nav__submenu")).toggle();
+  });
 })();
 
 $(function tabs() {
